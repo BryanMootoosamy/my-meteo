@@ -1,9 +1,15 @@
-
+const red = "#A2273C";
 export default {
 
-    color: "#A2273C",
+    color: red,
     container: {
         margin: 20
+    },
+    header: {
+        backgroundColor: red,
+    },
+    headerTitle: {
+        color: "#FFF"
     }
     
 }
