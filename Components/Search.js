@@ -21,7 +21,7 @@ class Search extends React.Component{
     static navigationOptions = {
         title: "Rechercher une ville",
         tabBarIcon: () => {
-            return <Image source={require('./icons/home.png')} style={{width: 20, height: 20}}/>
+            return (<Image source={require('./icons/home.png')} style={{width: 20, height: 20}}/>)
         }
     }
     render(){
@@ -40,15 +40,15 @@ class Search extends React.Component{
 }
 const navigationOptions = {
     headerStyle: styles.header,
-    headerTitleStyle: styles.headerTitle
+    headerTitleStyle: styles.headerTitle,
 }
 export default StackNavigator({
-    Result: {
-        screen: List,
-        navigationOptions
-    },
     Search: {
         screen: Search,
         navigationOptions
     },
-})
+    Result: {
+        screen: List,
+        navigationOptions
+    },
+}, )

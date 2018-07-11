@@ -1,22 +1,24 @@
 import React from "react";
-import {Text, ActivityIndicator, ListView} from "react-native";
+import {ActivityIndicator, ListView, Image} from "react-native";
 import style from "../Style.js";
 import Row from "./weather/Row.js"
 import { fetchWeather } from "./fetch.js";
 export default class List extends React.Component{
     static navigationOptions = ({navigation}) => {
         return {
-            title: `Météo / `
-
+            title: `Météo / ${navigation.state.params.city}`,
+            tabBarIcon: () => {
+                return (<Image source={require('./icons/home.png')} style={{width: 20, height: 20}}/>)
+            }
         }
     }
     constructor (props){
         super(props);
         this.state = {
-            city: 'Ransart',//this.props.navigation.state.params.city,
+            city: this.props.navigation.state.params.city,
             report: null
         }
-        fetchWeather(this ,this.state.city)
+        setTimeout(() => {fetchWeather(this ,this.state.city)}, 1000)
     }
     render() {
         if (this.state.report === null) {
@@ -28,7 +30,7 @@ export default class List extends React.Component{
             return(
                 <ListView
                     dataSource={ds.cloneWithRows(this.state.report.list)}
-                    renderRow={(rowData) => <Row data={rowData} />}
+                    renderRow={(rowData, j, k) => <Row data={rowData} index={k} />}
                 />
             )
         }

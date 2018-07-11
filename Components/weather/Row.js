@@ -1,10 +1,15 @@
 import React from "react";
-import {View, Text, StyleSheet} from "react-native";
+import {View, Text, StyleSheet, Image} from "react-native";
 import moment from "moment";
 import styleGlobal from "../../Style.js";
 import "moment/locale/fr";
+import PropTypes from "prop-types";
 moment.locale('fr');
 export default class Row extends React.Component{
+    static propTypes= {
+        day: PropTypes.object,
+        index: PropTypes.number
+    }
     day(){
         let day = moment(this.props.data.dt * 1000).format('ddd');
         return(
@@ -17,13 +22,45 @@ export default class Row extends React.Component{
             <Text style={style.white}>{day}</Text>
         );
     }
+    icon(size = 50){
+        const type = this.props.data.weather[0].main.toLowerCase();
+        let image;
+        switch (type) {
+            case 'clouds': 
+                image = require("../icons/cloud.png");
+                break;
+            case 'rain':
+                image = require("../icons/rain.png");
+                break;
+            default: 
+                image = require("../icons/sun.png");
+                break;
+        }
+        return <Image source={image} style={{width: size, height: size}} />;
+    }
     render(){
-        return(
-            <View style={style.view}>
-                <Text>{this.day()} {this.date()}</Text>
-                <Text style={style.temp}>{this.props.data.temp.day}°C</Text>
-            </View>
-        )
+        console.log("pouet " + this.props.index)
+        if (this.props.index == 0) {
+            return(
+                <View style={[style.view, style.flex, style.firstView]}>
+                <View>
+                    <Text style={{color: "#FFF"}}>{this.day()} {this.date()}</Text>
+                    {this.icon(90)}
+                </View>
+                <Text style={[style.temp, {fontSize: 35}]}>{Math.round(this.props.data.temp.day)}°C</Text>
+                </View>
+            )
+        } else {
+            return(
+                <View style={[style.view, style.flex]}>
+                    <View style={style.flex}>
+                        {this.icon()}
+                        <Text style={{marginLeft: 10}}>{this.day()} {this.date()}</Text>
+                    </View>
+                    <Text style={style.temp}>{Math.round(this.props.data.temp.day)}°C</Text>
+                </View>
+            )
+        }
     }
 }
 const style = StyleSheet.create({
@@ -33,20 +70,27 @@ const style = StyleSheet.create({
     bold: {
         fontWeight: "bold"
     },
+    flex: {
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    firstView: {
+        backgroundColor: "#e54b65"
+    },
     view: {
-        backgroundColor: styleGlobal.color,
+        backgroundColor: "#394163",
+        justifyContent: "space-between",
         borderWidth: 0,
         borderBottomWidth: 1,
         borderBottomColor: "#202340",
         paddingHorizontal: 20,
         paddingVertical: 10,
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between"
+        
     },
     temp: {
         color: "#FFF",
         fontWeight: "bold",
         fontSize: 22
-    }
+    },
 }) 
