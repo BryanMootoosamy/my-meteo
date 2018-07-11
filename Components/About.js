@@ -5,7 +5,7 @@ import {View, Text, StyleSheet, Image, Button} from "react-native";
 export default class About extends React.Component{
     static navigationOptions = {
         tabBarIcon: () => {
-            return <Image source={require('../icons/user.png')} style={{width: 20, height: 20}}/>
+            return <Image source={require('./icons/user.png')} style={{width: 20, height: 20}}/>
         }
     }
     search() {
