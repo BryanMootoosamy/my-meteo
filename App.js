@@ -10,17 +10,41 @@ import {
   StyleSheet,
   Text, 
   View, 
-  StatusBar
+  StatusBar,
+  Image
 } from 'react-native';
 import About from "./Components/About";
 import Search from "./Components/Search";
-import { TabNavigator } from "react-navigation";
-const Tabs = TabNavigator({
-  Search: { screen: Search },
-  About: { screen: About }
-}, {
-  tabBarPosition: 'bottom',
-  tabBarOptions: {
+import { TabNavigator, createBottomTabNavigator } from "react-navigation";
+// const Tabs = TabNavigator({
+//   Search: { screen: Search },
+//   About: { screen: About }
+// }, {
+//   tabBarPosition: 'bottom',
+//   tabBarOptions: {
+//     showIcon: true,
+//     showLabel: false,
+//     indicatorStyle: {
+//       height: 2,
+//       backgroundColor: "#FFF"
+//     },
+//     style: {
+  //       backgroundColor: "#a2273C",
+  //       borderTopWidth: 1,
+  //       borderColor: "#3f101c"
+  //     }
+  //   }
+  // })
+  Search.navigationOptions = {
+    tabBarIcon: () => {
+      return (<Image source={require('./Components/icons/home.png')} style={{width: 20, height: 20}}/>)
+  }
+  }
+  const Tabs = createBottomTabNavigator({
+    Search,
+    About
+  },
+  {tabBarOptions: {
     showIcon: true,
     showLabel: false,
     indicatorStyle: {
@@ -28,15 +52,15 @@ const Tabs = TabNavigator({
       backgroundColor: "#FFF"
     },
     style: {
-      backgroundColor: "#a2273C",
-      borderTopWidth: 1,
-      borderColor: "#3f101c"
+        backgroundColor: "#a2273C",
+        borderTopWidth: 1,
+        borderColor: "#3f101c"
+      }
     }
   }
-})
-
-export default class App extends Component<Props> {
-  render() {
+)
+  export default class App extends Component<Props> {
+    render() {
     return (
       <View style={{flex: 1}}>
         <StatusBar hidden={true}/>
@@ -64,4 +88,3 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-
