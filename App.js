@@ -16,25 +16,6 @@ import {
 import About from "./Components/About";
 import Search from "./Components/Search";
 import { TabNavigator, createBottomTabNavigator } from "react-navigation";
-// const Tabs = TabNavigator({
-//   Search: { screen: Search },
-//   About: { screen: About }
-// }, {
-//   tabBarPosition: 'bottom',
-//   tabBarOptions: {
-//     showIcon: true,
-//     showLabel: false,
-//     indicatorStyle: {
-//       height: 2,
-//       backgroundColor: "#FFF"
-//     },
-//     style: {
-  //       backgroundColor: "#a2273C",
-  //       borderTopWidth: 1,
-  //       borderColor: "#3f101c"
-  //     }
-  //   }
-  // })
   Search.navigationOptions = {
     tabBarIcon: () => {
       return (<Image source={require('./Components/icons/home.png')} style={{width: 20, height: 20}}/>)
